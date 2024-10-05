@@ -46,6 +46,7 @@ public sealed class CykaManager : Component
 
 		Playing = false;
 		Sandbox.Services.Stats.SetValue( "highscore", Score );
+		Sandbox.Services.Stats.Increment( "games_played", 1 );
 	}
 
 	public void AddBall( GameObject ball )

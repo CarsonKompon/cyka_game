@@ -66,7 +66,12 @@ public sealed class BallComponent : Component, Component.ICollisionListener
 	public void Grow()
 	{
 		Size++;
+		if ( Size >= Emojis.Count )
+		{
+			Sandbox.Services.Achievements.Unlock( "largest_merge" );
+		}
 		Manager.AddScore( Size );
+		Sandbox.Services.Stats.Increment( "merge_count", 1 );
 		if ( textRenderer != null )
 			textRenderer.Text = GetEmoji();
 	}

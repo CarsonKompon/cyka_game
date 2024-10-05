@@ -10,6 +10,16 @@ CykaHud
 	color: white;
 	text-shadow: 0 0 8px black;
 
+	> .mouse
+	{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 0px;
+		height: 0px;
+		pointer-events: all;
+	}
+
 	> .left
 	{
 		position: absolute;

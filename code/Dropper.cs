@@ -42,10 +42,10 @@ public sealed class Dropper : Component
 			hspeed = hspeed.LerpTo( 0f, Time.Delta * LerpSpeed );
 		}
 
-		var y = Transform.Position.y;
-		y += Time.Delta * hspeed;
-		y = Math.Clamp( y, -Range, Range );
-		Transform.Position = Transform.Position.WithY( y );
+		var tr = Scene.Trace.Ray( Scene.Camera.ScreenPixelToRay( Mouse.Position ), 200f ).Run();
+		var y = WorldPosition.y;
+		y = y.LerpTo( tr.EndPosition.y, Time.Delta * 25f );
+		WorldPosition = WorldPosition.WithY( MathX.Clamp( y, -Range, Range ) );
 
 
 		if ( Input.Pressed( "Jump" ) || Input.Pressed( "attack1" ) )

@@ -3,6 +3,7 @@
 @inherits PanelComponent
 
 <root>
+	<div class="mouse" />
 	<div class="left">
 		<div class="score">
 			<div class="score">
@@ -15,11 +16,11 @@
 			</div>
 		</div>
 		<div class="leaderboard">
-			@if(Manager.Leaderboard is not null)
+			@if (Manager.Leaderboard is not null)
 			{
 				<h1>LEADERBOARD</h1>
 				<div class="entries">
-					@foreach(var entry in Manager.Leaderboard.Entries)
+					@foreach (var entry in Manager.Leaderboard.Entries)
 					{
 						<div class="entry @IsMe(entry)">
 							<div class="rank">@entry.Rank</div>
@@ -44,11 +45,11 @@
 			<img src="/ui/circle-of-evolution.png" />
 		</div>
 	</div>
-	@if(DeathZone.TimeInZone > 1f)
+	@if (DeathZone.TimeInZone > 1f)
 	{
 		float time = DeathZone.TimeInZone;
-		int x = System.Random.Shared.Int(-(int)time,(int)time);
-		int y = System.Random.Shared.Int(-(int)time,(int)time);
+		int x = System.Random.Shared.Int(-(int)time, (int)time);
+		int y = System.Random.Shared.Int(-(int)time, (int)time);
 		<div class="death-bar">
 			<div class="container" style="left: @(x)px; top: @(y)px;">
 				<div class="bar">
@@ -61,7 +62,7 @@
 		</div>
 	}
 
-	@if(!Manager.Playing)
+	@if (!Manager.Playing)
 	{
 		<div class="game-over">
 			<div class="content">
@@ -95,14 +96,14 @@
 	[Property] DeathZone DeathZone { get; set; }
 
 	string IsMe(Sandbox.Services.Leaderboards.Entry entry)
-    {
-        return entry.Me ? "me" : "";
-    }
+	{
+		return entry.Me ? "me" : "";
+	}
 
 	string AvatarTexture(Sandbox.Services.Leaderboards.Entry entry)
-    {
-        return $"avatar:{entry.SteamId}";
-    }
+	{
+		return $"avatar:{entry.SteamId}";
+	}
 
-	protected override int BuildHash() => System.HashCode.Combine( Dropper.UpNext, Manager.Score, Manager.HighScore, DeathZone.TimeInZone );
+	protected override int BuildHash() => System.HashCode.Combine(Dropper.UpNext, Manager.Score, Manager.HighScore, DeathZone.TimeInZone);
 }
