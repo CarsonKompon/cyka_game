@@ -59,7 +59,7 @@ public sealed class Dropper : Component
 		if ( timeSinceLastDrop < 0.25f )
 			return;
 
-		var obj = SceneUtility.Instantiate( BallPrefab, Transform.Position + Vector3.Zero.WithY( Random.Shared.Float( -1f, 1f ) ) );
+		var obj = BallPrefab.Clone( WorldPosition + Vector3.Zero.WithY( Random.Shared.Float( -1f, 1f ) ) );
 		var ball = obj.Components.Get<BallComponent>();
 		if ( ball is not null )
 		{
