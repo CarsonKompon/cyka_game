@@ -27,6 +27,9 @@ public sealed class BallComponent : Component, Component.ICollisionListener
 		textRenderer = Components.Get<TextRenderer>( FindMode.EverythingInSelfAndChildren );
 		textRenderer.Text = GetEmoji();
 		fontScale = textRenderer.Scale;
+
+		var rigidbody = Components.Get<Rigidbody>( FindMode.EverythingInSelfAndChildren );
+		rigidbody.CollisionUpdateEventsEnabled = true;
 	}
 
 	protected override void OnUpdate()
@@ -43,7 +46,7 @@ public sealed class BallComponent : Component, Component.ICollisionListener
 		Manager.RemoveBall( GameObject );
 	}
 
-	public void OnCollisionStart( Collision collision )
+	public void OnCollisionUpdate( Collision collision )
 	{
 		var other = collision.Other.GameObject.Components.Get<BallComponent>();
 		if ( other != null && other.Size == Size )
@@ -51,11 +54,6 @@ public sealed class BallComponent : Component, Component.ICollisionListener
 			this?.Grow();
 			other.GameObject.DestroyImmediate();
 		}
-	}
-
-	public void OnCollisionUpdate( Collision collision )
-	{
-
 	}
 
 	public void OnCollisionStop( CollisionStop collision )
