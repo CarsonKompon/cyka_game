@@ -67,7 +67,7 @@ public sealed class Dropper : Component
 			ball.Size = UpNext;
 		}
 		Manager.AddScore( UpNext );
-		Manager.AddBall( obj );
+		Manager.AddBall( ball );
 		UpNext = Random.Shared.Int( 1, 5 );
 		timeSinceLastDrop = 0;
 	}

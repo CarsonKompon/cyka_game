@@ -9,38 +9,36 @@ public sealed class BallComponent : Component, Component.ICollisionListener
 	[Property] public int Size { get; set; } = 1;
 	[Property] public List<string> Emojis { get; set; } = new();
 
-	float colliderSize = 10f;
-	float fontScale = 0f;
 	SphereCollider collider;
 	TextRenderer textRenderer;
+
+	public TimeSince TimeSinceCreated = 0f;
 
 	protected override void OnAwake()
 	{
 		instance = this;
+
+		WorldScale = 0;
 	}
 
 	protected override void OnStart()
 	{
 		collider = Components.Get<SphereCollider>( FindMode.EverythingInSelfAndChildren );
-		colliderSize = collider.Radius;
-
 		textRenderer = Components.Get<TextRenderer>( FindMode.EverythingInSelfAndChildren );
+
 		textRenderer.Text = GetEmoji();
-		fontScale = textRenderer.Scale;
+		collider.Radius = GetSize();
+		textRenderer.Scale = GetFontScale();
 	}
 
 	protected override void OnUpdate()
 	{
-		colliderSize = MathX.LerpTo( colliderSize, GetSize(), Time.Delta * 10f );
-		collider.Radius = colliderSize;
-
-		fontScale = MathX.LerpTo( fontScale, GetFontScale(), Time.Delta * 10f );
-		textRenderer.Scale = fontScale;
+		WorldScale = WorldScale.LerpTo( 0.5f, 10 * Time.Delta );
 	}
 
 	protected override void OnDestroy()
 	{
-		Manager.RemoveBall( GameObject );
+		Manager.RemoveBall( this );
 	}
 
 	public void OnCollisionStart( Collision collision )

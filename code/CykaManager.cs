@@ -8,7 +8,7 @@ public sealed class CykaManager : Component
 	public long Score { get; private set; } = 0;
 	public long HighScore { get; private set; } = 0;
 	public int Evolution { get; private set; } = 1;
-	public List<GameObject> Balls { get; private set; } = new();
+	public List<BallComponent> Balls { get; private set; } = new();
 	public Sandbox.Services.Leaderboards.Board Leaderboard;
 
 	protected override void OnStart()
@@ -49,12 +49,12 @@ public sealed class CykaManager : Component
 		Sandbox.Services.Stats.Increment( "games_played", 1 );
 	}
 
-	public void AddBall( GameObject ball )
+	public void AddBall( BallComponent ball )
 	{
 		Balls.Add( ball );
 	}
 
-	public void RemoveBall( GameObject ball )
+	public void RemoveBall( BallComponent ball )
 	{
 		Balls.Remove( ball );
 	}
