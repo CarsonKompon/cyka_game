@@ -5,7 +5,7 @@ public sealed class DeathZone : Component
 {
 	[Property] CykaManager Manager { get; set; }
 	[Property] public float DeathTime { get; set; } = 5f;
-	public bool BallAboveLine => Manager.Balls.Any( ball => ball.TimeSinceCreated > 1f && ball.WorldPosition.z > WorldPosition.z );
+	public bool BallAboveLine => Manager.Balls.Any( ball => ball.WorldPosition.z > WorldPosition.z );
 
 	public float TimeInZone = 0f;
 	float textScale = 0f;
